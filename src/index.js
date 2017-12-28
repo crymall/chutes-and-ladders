@@ -24,14 +24,14 @@ class App extends React.Component {
       93: 73,
       95: 75,
       98: 78
-    }
+    };
 
     this.state = {
       playerCount: 2,
       players: [],
       stories: [],
       gameStarted: false
-    }
+    };
   }
 
   updatePlayerCount = (e) => {
@@ -40,76 +40,88 @@ class App extends React.Component {
     });
   }
 
-  playGame = () => {
+  setPlayers = () => {
     const playerCount = this.state.playerCount;
-    const players = this.state.players;
-    const stories = this.state.stories;
-    const board = this.board;
     let newPlayers = [];
     let playerName = "";
 
-    if (playerCount > 0) {
-
-      for (let i = 0; i < playerCount; i++) {
-        playerName = "player" + (i + 1).toString();
-        newPlayers = newPlayers.concat(playerName)
-      }
-
-      if (players === []) {
-        this.setState({
-          players: newPlayers
-        });
-      } else {
-        players.forEach((playerName) => {
-          let stateName = playerName + "story";
-          let story = [];
-          let currentSpace = 0;
-          let turnCount = 0;
-
-          while (currentSpace !== 100) {
-            let roll = Math.floor((Math.random() * 6) + 1);
-
-            if ((currentSpace + roll) < 100) {
-              currentSpace = currentSpace + roll;
-              story.concat(playerName + " landed on " + currentSpace + ".")
-
-              if (board[currentSpace]) {
-                if (currentSpace < board[currentSpace]) {
-                  currentSpace = board[currentSpace];
-                  story.concat("Ladder! " + playerName + " now on " + currentSpace + "!");
-                } else {
-                  currentSpace = board[currentSpace];
-                  story.concat("Chute! " + playerName + " now on " + currentSpace + "!");
-                }
-              }
-
-            } else {
-              story.concat("Roll exceeded 100! Player still on " + currentSpace);
-              continue;
-            }
-
-            turnCount += 1;
-
-          if (currentSpace === 100) {
-            console.log(story)
-
-            story.concat(turnCount);
-
-            let newStories = stories.concat(story);
-            console.log("new story is " + newStories)
-
-            this.setState({
-              stories: newStories,
-              gameStarted: true
-            })
-          }
-        }
-      }
+    for (let i = 0; i < playerCount; i++) {
+      playerName = "player" + (i + 1).toString();
+      newPlayers = newPlayers.concat(playerName);
     }
+
+    this.setState({
+      players: newPlayers
+    });
+
   }
+
+  playGame = () => {
+    const playerCount = this.state.playerCount;
+    const players = this.state.players;
+    let newStories = [];
+    const board = this.board;
+    let currentSpace = 100;
+
+    players.forEach((playerName) => {
+      let stateName = playerName + "story";
+      let story = [];
+      let turnCount = 0;
+      currentSpace = 0;
+
+      while (currentSpace !== 100) {
+        let roll = Math.floor((Math.random() * 6) + 1);
+
+        if ((currentSpace + roll) <= 100) {
+          currentSpace = currentSpace + roll;
+          story.push(playerName + " landed on " + currentSpace + ".");
+
+          if (board[currentSpace]) {
+            if (currentSpace < board[currentSpace]) {
+              currentSpace = board[currentSpace];
+              story.push("Ladder! " + playerName + " now on " + currentSpace + "!");
+            } else {
+              currentSpace = board[currentSpace];
+              story.push("Chute! " + playerName + " now on " + currentSpace + "!");
+            }
+          }
+
+        } else {
+          story.push("Roll exceeded 100! Player still on " + currentSpace);
+          continue;
+        }
+
+        turnCount += 1;
+      }
+
+      if (currentSpace === 100) {
+        story.push(turnCount);
+
+        newStories.push(story);
+      }
+    });
+
+    console.log(newStories);
+
+    this.setState({
+      stories: newStories,
+      gameStarted: true
+    });
+  }
+
+
+
 
   render() {
     let { playerCount, players, stories, gameStarted } = this.state;
+
+    let storyItem = stories.map((story) => {
+                      let storyList = story.map((leg) => {
+                        return <li>{leg}</li>
+                      })
+
+                      return(<ul> {storyList} </ul>)
+                    })
 
     if (!gameStarted) {
       return (
@@ -119,9 +131,9 @@ class App extends React.Component {
             <h2>Chutes and Ladders</h2>
             <p>
               The game "Chutes and Ladders" requires no player choice.
-              It is, effectively, a complicated coin flip.
-              Play it here and save time.
-            </p>
+            It is, effectively, a complicated coin flip.
+            Play it here and save time.
+          </p>
           </div>
 
 
@@ -134,6 +146,8 @@ class App extends React.Component {
               </select>
             </label>
 
+            <button onClick={this.setPlayers}>Set Player Number</button>
+
             <button onClick={this.playGame}>Play!</button>
           </div>
 
@@ -143,13 +157,9 @@ class App extends React.Component {
       return (
         <div className="wholeRecap">
           <h2>Chutes and Ladders</h2>
-          {
-            stories.forEach((story) => {
-              story.map((leg) => {
-                return (<p>{leg}</p>)
-              })
-            })
-          }
+          <div>
+            {storyItem}
+          </div>
         </div>
       )
     }
@@ -157,4 +167,4 @@ class App extends React.Component {
 
 }
 
-render(<App />, document.getElementById('root'));
+render(<App /> , document.getElementById('root'));
