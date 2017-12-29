@@ -2,10 +2,12 @@ h3 {
   font-family: 'Lilita One', cursive;
   font-weight: lighter;
   color: white;
+  font-size: 35px;
 }
 
 p, li, label, select, option, button {
   font-family: 'Roboto Slab', serif;
+  font-size: 22px;
 }
 
 p, li, label {
@@ -17,7 +19,7 @@ ul {
 }
 
 li {
-  font-size: 8px;
+  font-size: 14px;
 }
 
 body {
@@ -30,14 +32,14 @@ body {
   padding: 25px;
   padding-top: 1px;
   background-color: #566573;
-  max-width: 500px;
+  max-width: 800px;
   box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
   -webkit-box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
   -moz-box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
 }
 
 .wholeRecap {
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 
@@ -68,4 +70,5 @@ select {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-right: 20px;
 }
