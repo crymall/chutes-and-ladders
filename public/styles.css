@@ -1,0 +1,74 @@
+h3 {
+  font-family: 'Lilita One', cursive;
+  font-weight: lighter;
+  color: white;
+  font-size: 35px;
+}
+
+p, li, label, select, option, button {
+  font-family: 'Roboto Slab', serif;
+  font-size: 22px;
+}
+
+p, li, label {
+  color: white;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  font-size: 14px;
+}
+
+body {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.startScreen, .wholeRecap {
+  padding: 25px;
+  padding-top: 1px;
+  background-color: #566573;
+  max-width: 800px;
+  box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
+}
+
+.wholeRecap {
+  max-width: 1200px;
+}
+
+
+
+.gameForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+select {
+  margin-left: 10px;
+}
+
+.playerCount {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+}
+
+.startButton {
+  width: 100px;
+  margin-top: 20px;
+}
+
+.storiesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 20px;
+}

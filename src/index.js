@@ -88,6 +88,7 @@ class App extends React.Component {
 
         } else {
           story.push("Roll exceeded 100! Player still on " + currentSpace);
+          turnCount += 1;
           continue;
         }
 
