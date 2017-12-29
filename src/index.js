@@ -28,7 +28,7 @@ class App extends React.Component {
 
     this.state = {
       playerCount: 2,
-      players: [],
+      players: "",
       stories: [],
       gameStarted: false
     };
@@ -120,7 +120,7 @@ class App extends React.Component {
                         return <li>{leg}</li>
                       })
 
-                      return(<ul> {storyList} </ul>)
+                      return (<ul className="stories"> {storyList} </ul>)
                     })
 
     if (!gameStarted) {
@@ -128,27 +128,29 @@ class App extends React.Component {
         <div className="startScreen">
 
           <div className="gameDesc">
-            <h2>Chutes and Ladders</h2>
+            <h3>Chutes and Ladders</h3>
             <p>
               The game "Chutes and Ladders" requires no player choice.
             It is, effectively, a complicated coin flip.
             Play it here and save time.
-          </p>
+            </p>
           </div>
 
 
           <div className="gameForm">
-            <label> How many players? {" "}
-              <select onChange={this.updatePlayerCount}>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
-              </select>
-            </label>
+            <div className="playerCount">
+              <label> How many players? {" "}
+                <select onChange={this.updatePlayerCount}>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                  <option value="4">Four</option>
+                </select>
+              </label>
 
-            <button onClick={this.setPlayers}>Set Player Number</button>
+              <button onClick={this.setPlayers}>Set Player Number</button>
+            </div>
 
-            <button onClick={this.playGame}>Play!</button>
+            <button className="startButton" disabled={!players} onClick={this.playGame}>Play!</button>
           </div>
 
         </div>
@@ -156,8 +158,8 @@ class App extends React.Component {
     } else {
       return (
         <div className="wholeRecap">
-          <h2>Chutes and Ladders</h2>
-          <div>
+          <h3>Chutes and Ladders</h3>
+          <div className="storiesContainer">
             {storyItem}
           </div>
         </div>
